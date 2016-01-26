@@ -1,0 +1,7 @@
+graphite:
+  host:
+  port:
+  report-interval:
+  prefix:
+  source-id:
+

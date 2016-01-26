@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.jgoelen.graphite.GraphiteAutoConfigure,\
+com.github.jgoelen.graphite.GraphiteProperties
