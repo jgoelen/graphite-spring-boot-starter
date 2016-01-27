@@ -22,15 +22,9 @@ public class GraphiteProperties {
 
     /**
      * Prefix for all metric names that get send to the graphite server, e.g.
-     * production.applications.user_service
+     * production.applications.user_service.host
      */
     private String prefix;
-
-    /**
-     * A unique string that uniquely identifies the source of a metric,
-     * in practice this will be the hostname and/or container name.
-     */
-    private String sourceId;
 
     /***
      * Feature flag
@@ -68,14 +62,6 @@ public class GraphiteProperties {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
-    }
-
-    public String getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
     }
 
     public boolean isEnabled() {

@@ -14,10 +14,10 @@ import java.net.DatagramSocket;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.emptyArray;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
-
 import static org.springframework.boot.test.EnvironmentTestUtils.addEnvironment;
 
 public class GraphiteAutoConfigureTest {
@@ -39,13 +39,13 @@ public class GraphiteAutoConfigureTest {
 
     @Test
     public void reporterShouldNotStartWhenDisabled(){
-        initContextWith(false, 1, "test.applications.myapp", "host1");
+        initContextWith(false, 1, "test.applications.myapp");
         assertThat(this.context.getBeanNamesForType(GraphiteReportingManager.class), emptyArray());
     }
 
     @Test
     public void reporterShouldStartWhenEnabled(){
-        initContextWith(true, 1, "test.applications.myapp", "host1");
+        initContextWith(true, 1, "test.applications.myapp");
         assertThat(this.context.getBeanNamesForType(GraphiteReportingManager.class), arrayWithSize(1));
     }
 
@@ -53,23 +53,21 @@ public class GraphiteAutoConfigureTest {
     public void reportShouldPushMetricsWhenEnabled() throws Exception {
         final int intervalInSeconds = 1;
         final String prefix = "test.applications.myapp";
-        final String source = "host1";
         final String counterName = "tests";
-        initContextWith(true, intervalInSeconds, prefix, source);
+        initContextWith(true, intervalInSeconds, prefix);
         MetricRegistry metricRegistry = this.context.getBean(MetricRegistry.class);
         metricRegistry.counter(counterName).inc();
         String metric = serverStub.pollMetric(intervalInSeconds * 2);
-        assertThat(metric, startsWith(prefix + "." + source + "." + counterName + ".count 1"));
+        assertThat(metric, startsWith(prefix + "." + counterName + ".count 1"));
     }
 
 
-    private void initContextWith(boolean enabled, int intervalInSeconds, String prefix, String source) {
+    private void initContextWith(boolean enabled, int intervalInSeconds, String prefix) {
         addEnvironment(this.context, "graphite.enabled:" + enabled,
                 "graphite.host:localhost",
                 "graphite.port:" + serverStub.getPort(),
-                "graphite.reportInterval:" + intervalInSeconds,
-                "graphite.prefix:" + prefix,
-                "graphite.sourceId:" + source);
+                "graphite.report-interval:" + intervalInSeconds,
+                "graphite.prefix:" + prefix);
         context.register(MetricsDropwizardAutoConfiguration.class,GraphiteAutoConfigure.class);
         context.refresh();
     }

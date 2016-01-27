@@ -49,7 +49,7 @@ class GraphiteReportingManager implements DisposableBean, InitializingBean {
         return GraphiteReporter.forRegistry(registry)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
-                .prefixedWith(props.getPrefix() + "." + props.getSourceId())
+                .prefixedWith(props.getPrefix())
                 .build(new GraphiteUDP(props.getHost(), props.getPort()));
     }
 
