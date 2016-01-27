@@ -1,5 +1,7 @@
 # Spring Boot starter for Graphite
 
+[![Build Status](https://travis-ci.org/jgoelen/graphite-spring-boot-starter.svg?branch=master)](https://travis-ci.org/jgoelen/graphite-spring-boot-starter)
+
 Adds the Codahale [metrics-graphite](https://dropwizard.github.io/metrics/3.1.0/manual/graphite/#manual-graphite)
 module to your Spring Boot application. It allows your application to constantly stream metric
 values to a [Graphite](http://graphite.wikidot.com/) server.
