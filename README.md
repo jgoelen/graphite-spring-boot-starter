@@ -16,7 +16,7 @@ dependency is declared in the Maven build file:
 </dependency>
 ```
 
-Add the following
+Add the following dependency:
 
 ```xml
 <dependency>
