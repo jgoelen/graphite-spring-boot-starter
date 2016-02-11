@@ -3,7 +3,7 @@ jdk:
   - oraclejdk7
 
 after_success:
-  - mvn clean deploy --settings settings.xml
+  - mvn clean deploy --settings settings.xml -DskipTests=true -B
 
 env:
   global:
