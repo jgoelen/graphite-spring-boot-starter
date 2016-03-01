@@ -2,8 +2,11 @@ package com.github.jgoelen.graphite;
 
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
+import com.codahale.metrics.graphite.GraphiteSender;
 import com.codahale.metrics.graphite.GraphiteUDP;
+import com.codahale.metrics.graphite.PickledGraphite;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +53,20 @@ class GraphiteReportingManager implements DisposableBean, InitializingBean {
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
                 .prefixedWith(props.getPrefix())
-                .build(new GraphiteUDP(props.getHost(), props.getPort()));
+                .build(createSender(props));
+    }
+
+    private GraphiteSender createSender(GraphiteProperties props){
+        switch (props.getSenderType()){
+            case udp:
+                return new GraphiteUDP(props.getHost(),props.getPort());
+            case tcp:
+                return new Graphite(props.getHost(),props.getPort());
+            case pickled:
+                return new PickledGraphite(props.getHost(),props.getPort());
+            default:
+                return new GraphiteUDP(props.getHost(),props.getPort());
+        }
     }
 
 }

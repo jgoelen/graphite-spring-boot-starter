@@ -2,6 +2,8 @@ package com.github.jgoelen.graphite;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import static com.github.jgoelen.graphite.GraphiteSenderType.*;
+
 @ConfigurationProperties(prefix = "graphite")
 public class GraphiteProperties {
 
@@ -25,6 +27,11 @@ public class GraphiteProperties {
      * production.applications.user_service.host
      */
     private String prefix;
+
+
+    /**
+     */
+    private GraphiteSenderType senderType = udp;
 
     /***
      * Feature flag
@@ -62,6 +69,14 @@ public class GraphiteProperties {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public GraphiteSenderType getSenderType() {
+        return senderType;
+    }
+
+    public void setSenderType(GraphiteSenderType senderType) {
+        this.senderType = senderType;
     }
 
     public boolean isEnabled() {
