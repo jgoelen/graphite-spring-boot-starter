@@ -24,8 +24,21 @@ Add the following dependency:
 <dependency>
     <groupId>com.github.jgoelen</groupId>
     <artifactId>graphite-spring-boot-starter</artifactId>
-    <version>1.3.x</version>
+    <version>0.1.x</version>
 </dependency>
+```
+
+It can be found in the following maven repository:
+
+```xml
+<repository>
+    <snapshots>
+        <enabled>false</enabled>
+    </snapshots>
+    <id>central</id>
+    <name>bintray</name>
+    <url>http://jcenter.bintray.com</url>
+</repository>
 ```
 
 ## Configuration
@@ -53,6 +66,15 @@ The prefix for all metric names that get published to Graphite.
 
 ```
 graphite.prefix=production.applications.user_service.host
+```
+
+The graphite sender type (
+[udp](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/GraphiteUDP.html),
+[tcp](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/Graphite.html) or
+[pickled](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/PickledGraphite.html)).
+
+```
+graphite.sender-type=udp
 ```
 
 ## Supported versions
