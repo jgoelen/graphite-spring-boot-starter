@@ -49,7 +49,7 @@ Feature flag to enable/disable the reporter.
 graphite.enabled=true
 ```
 
-Host and UDP port of the Graphite server.
+Host and port of the Graphite server.
 
 ```
 graphite.host=graphite.server.io
@@ -68,8 +68,7 @@ The prefix for all metric names that get published to Graphite.
 graphite.prefix=production.applications.user_service.host
 ```
 
-The graphite sender type (
-[udp](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/GraphiteUDP.html),
+The graphite sender type ([udp](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/GraphiteUDP.html),
 [tcp](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/Graphite.html) or
 [pickled](https://dropwizard.github.io/metrics/3.1.0/apidocs/com/codahale/metrics/graphite/PickledGraphite.html)).
 
