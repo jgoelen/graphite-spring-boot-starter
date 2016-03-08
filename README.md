@@ -24,7 +24,7 @@ Add the following dependency:
 <dependency>
     <groupId>com.github.jgoelen</groupId>
     <artifactId>graphite-spring-boot-starter</artifactId>
-    <version>0.1.x</version>
+    <version>x.y.z</version>
 </dependency>
 ```
 
