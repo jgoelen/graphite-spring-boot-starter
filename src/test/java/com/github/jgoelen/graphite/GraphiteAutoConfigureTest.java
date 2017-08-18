@@ -1,7 +1,6 @@
 package com.github.jgoelen.graphite;
 
 import com.codahale.metrics.MetricRegistry;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.emptyArray;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.EnvironmentTestUtils.addEnvironment;
+import static org.springframework.boot.test.util.EnvironmentTestUtils.addEnvironment;
 
 public class GraphiteAutoConfigureTest {
 
