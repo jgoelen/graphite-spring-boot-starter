@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * This component manages the lifecycle of a GraphiteReporter.
  */
-class GraphiteReportingManager implements DisposableBean, InitializingBean {
+public class GraphiteReportingManager implements DisposableBean, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -48,7 +48,7 @@ class GraphiteReportingManager implements DisposableBean, InitializingBean {
         logger.debug("Stopped reporter");
     }
 
-    private GraphiteReporter create(GraphiteProperties props, MetricRegistry registry) {
+    protected GraphiteReporter create(GraphiteProperties props, MetricRegistry registry) {
         return GraphiteReporter.forRegistry(registry)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
