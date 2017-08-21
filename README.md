@@ -78,4 +78,4 @@ graphite.sender-type=udp
 
 ## Supported versions
 
-For the moment Spring Boot version 1.3.x is supported.
+For the moment Spring Boot version 1.5.x is supported.
