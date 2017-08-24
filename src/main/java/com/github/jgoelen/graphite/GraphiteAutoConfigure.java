@@ -1,7 +1,6 @@
 package com.github.jgoelen.graphite;
 
 import com.codahale.metrics.MetricRegistry;
-
 import org.springframework.boot.actuate.autoconfigure.MetricsDropwizardAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,6 +19,5 @@ public class GraphiteAutoConfigure {
     public GraphiteReportingManager reportingManager(MetricRegistry metricRegistry, GraphiteProperties properties){
         return new GraphiteReportingManager(metricRegistry,properties);
     }
-
 
 }

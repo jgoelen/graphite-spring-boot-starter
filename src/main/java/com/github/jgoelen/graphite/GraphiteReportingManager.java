@@ -1,6 +1,5 @@
 package com.github.jgoelen.graphite;
 
-import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.*;
 import org.slf4j.Logger;
@@ -45,10 +44,10 @@ public class GraphiteReportingManager implements DisposableBean, InitializingBea
 
     protected GraphiteReporter create(GraphiteProperties props, MetricRegistry registry) {
         return GraphiteReporter.forRegistry(registry)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .filter(MetricFilter.ALL)
-                .prefixedWith(props.getPrefix())
-                .build(createSender(props));
+            .convertDurationsTo(TimeUnit.MILLISECONDS)
+            .filter(props.getMetricFilter())
+            .prefixedWith(props.getPrefix())
+            .build(createSender(props));
     }
 
     private GraphiteSender createSender(GraphiteProperties props){
