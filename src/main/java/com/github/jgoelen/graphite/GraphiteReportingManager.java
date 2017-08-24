@@ -2,12 +2,7 @@ package com.github.jgoelen.graphite;
 
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.graphite.Graphite;
-import com.codahale.metrics.graphite.GraphiteReporter;
-import com.codahale.metrics.graphite.GraphiteSender;
-import com.codahale.metrics.graphite.GraphiteUDP;
-import com.codahale.metrics.graphite.PickledGraphite;
-
+import com.codahale.metrics.graphite.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -19,18 +14,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * This component manages the lifecycle of a GraphiteReporter.
  */
-class GraphiteReportingManager implements DisposableBean, InitializingBean {
+public class GraphiteReportingManager implements DisposableBean, InitializingBean {
+    private static final Logger logger = LoggerFactory.getLogger(GraphiteReportingManager.class);
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private GraphiteReporter reporter;
     private GraphiteProperties props;
-
 
     public GraphiteReportingManager(MetricRegistry registry, GraphiteProperties props) {
         this.reporter = create(props, registry);
         this.props = props;
     }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -48,7 +43,7 @@ class GraphiteReportingManager implements DisposableBean, InitializingBean {
         logger.debug("Stopped reporter");
     }
 
-    private GraphiteReporter create(GraphiteProperties props, MetricRegistry registry) {
+    protected GraphiteReporter create(GraphiteProperties props, MetricRegistry registry) {
         return GraphiteReporter.forRegistry(registry)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
