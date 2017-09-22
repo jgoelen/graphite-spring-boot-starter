@@ -26,7 +26,7 @@ public class GraphiteProperties {
     /**
      * The reporting interval in seconds.
      */
-    private int reportInterval;
+    private int reportInterval = 5;
 
     /**
      * Prefix for all metric names that get send to the graphite server, e.g.
