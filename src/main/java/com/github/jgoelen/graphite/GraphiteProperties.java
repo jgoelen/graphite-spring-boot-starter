@@ -1,11 +1,17 @@
 package com.github.jgoelen.graphite;
 
+import com.codahale.metrics.MetricFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.ClassUtils;
 
-import static com.github.jgoelen.graphite.GraphiteSenderType.*;
+import static com.github.jgoelen.graphite.GraphiteSenderType.udp;
 
 @ConfigurationProperties(prefix = "graphite")
 public class GraphiteProperties {
+    private static final Logger logger = LoggerFactory.getLogger(GraphiteProperties.class);
+
 
     /**
      * Hostname of the Graphite server.
@@ -28,7 +34,6 @@ public class GraphiteProperties {
      */
     private String prefix;
 
-
     /**
      */
     private GraphiteSenderType senderType = udp;
@@ -37,6 +42,16 @@ public class GraphiteProperties {
      * Feature flag
      */
     private boolean enabled = true;
+
+    /**
+     * MetricFilter to use
+     */
+    private MetricFilter metricFilter = MetricFilter.ALL;
+
+
+    public GraphiteProperties() {
+
+    }
 
 
     public String getHost() {
@@ -85,5 +100,19 @@ public class GraphiteProperties {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public MetricFilter getMetricFilter() {
+        return metricFilter;
+    }
+
+    public void setMetricFilter(String metricFilterClassName) {
+        try {
+            Class<?> metricFilterClass = ClassUtils.forName(metricFilterClassName, null);
+            Object metricFilter = metricFilterClass.newInstance();
+            this.metricFilter = (MetricFilter) metricFilter;
+        } catch (Exception e) {
+            logger.error(metricFilterClassName + " is invalid MetricFilter!", e);
+        }
     }
 }
